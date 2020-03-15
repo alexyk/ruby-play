@@ -3,7 +3,9 @@ RSpec.describe Mars::Rover do
     expect(Mars::Rover::VERSION).not_to be nil
   end
 
-  it "does something useful" do
-    expect(false).to eq(true)
+  context "rules" do
+    xit "start at 0,0" do
+      
+    end
   end
 end
