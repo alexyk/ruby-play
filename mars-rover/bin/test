@@ -1,0 +1,7 @@
+#!/usr/bin/env bash
+
+if [ $#  -gt 0 ]; then
+  rspec "$@"
+else
+  rake spec
+fi
