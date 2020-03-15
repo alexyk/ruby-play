@@ -15,16 +15,16 @@ module Mars
             @x = 0
             @y = 0
           elsif params.count == 1 && params[0].is_a?(Array)
-            @x = params[0][0]
-            @y = params[0][1]
+            @x = Integer(params[0][0])
+            @y = Integer(params[0][1])
           else
-            @x = params[0]
-            @y = params[1]
+            @x = Integer(params[0])
+            @y = Integer(params[1])
           end
         end
 
         def to_s
-          "#{@x},#{@y}"
+          "(#{@x},#{@y})"
         end
       end
       
@@ -32,12 +32,10 @@ module Mars
         DIRECTIONS = ["N", "E", "S", "W"]
 
         def initialize(direction="N")
-          @current = DIRECTIONs.index direction
-        rescue "Hi"
+          @current = DIRECTIONS.index direction.upcase
         end
 
         def rotate(direction)
-          
           if direction == "L"
             @current = (@current > 0) ? (@current - 1) : DIRECTIONS.count-1
           elsif direction == "R"
@@ -50,6 +48,19 @@ module Mars
 
         def to_s
           "#{DIRECTIONS[@current]}"
+        end
+      end
+
+      class GridLimits
+        attr_reader :max_x, :max_y
+
+        def initialize(size_x, size_y)
+          @max_x = size_x - 1
+          @max_y = size_y - 1
+        end
+
+        def to_s
+          "(maxX=#{@max_x}, maxY=#{@max_y})"
         end
       end
     end

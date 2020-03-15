@@ -6,9 +6,68 @@ module Mars
     class Error < StandardError; end
 
     class Rover
-      def initialize(direction="N", position=[0,0])
-        @direction = Mars::Rover::Models::Direction.new
-        @position = Mars::Rover::Models::Position.new
+      attr_reader :cmd, :direction, :position, :grid_limits, :obstacles
+
+      def initialize(cmd=nil, direction="N", positionX=0, positionY=0)
+        if ! check_cmd(cmd)
+          return
+        end
+
+        @cmd = cmd
+        @direction = Mars::Rover::Models::Direction.new(direction)
+        @position = Mars::Rover::Models::Position.new(positionX, positionY)
+        @grid_limits = Mars::Rover::Models::GridLimits.new(10,10)
+        @obstacles = []
+      end
+
+      def add_obstacle(*params)
+        @obstacles.append(Mars::Rover::Models::Position.new(*params))
+      end
+
+      def to_s
+        res = '[Mars Rover] '
+        res += "dir: '#{@direction}', "
+        res += "position: #{@position.to_s}, "
+        res += "limits: #{@grid_limits.to_s}, "
+        res += "cmd: '#{@cmd}', "
+
+        n = 1
+        len = @obstacles.count
+        for item in @obstacles
+          res += "o#{n}: #{item.to_s}"
+          n += 1
+          res += ", " if n <= len
+        end
+
+        res
+      end
+
+      def check_cmd(cmd)
+        if cmd.nil?
+          puts
+          puts "First command line argument to bin/start is obligatory. Example: 'RMMMLLM'"
+          print_help
+          return false
+        end
+
+        if ["help", "-h", "--help", '?', "/?"].include? cmd
+          print_help
+          return false
+        end
+
+        return true
+      end
+
+      def print_help
+        puts
+        puts "Usage:"
+        puts "    bin/start <cmd> [start-direction] [start-x] [start-y]"
+        puts "where:"
+        puts "    cmd               obligatory - a command string (example: 'RMMLLM' - rotate [R]ight, [M]ove etc.)"
+        puts "    start-direction   optional - one of 'N', 'S', 'W' or 'E' (default is 'N')"
+        puts "    start-x           optional - start x position (default is 0"
+        puts "    start-y           optional - start y position (default is 0"
+        puts
       end
     end
   end
