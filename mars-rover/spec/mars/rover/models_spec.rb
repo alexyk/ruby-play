@@ -17,7 +17,7 @@ RSpec.describe Mars::Rover::Models do
   end
   
   context "Position changes" do
-    it "normal change - from 3,7 to 1,5" do
+    it "normal case - old 3,7, new 1,5" do
       pos = Mars::Rover::Models::Position.new(3,7)
       expect(pos.to_s).to eq('3,7')
 
