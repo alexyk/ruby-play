@@ -1,0 +1,7 @@
+#!/usr/bin/env ruby
+
+# add lib folder
+$LOAD_PATH.unshift File.dirname(__FILE__) + '/../lib'
+
+require "mars/rover"
+Mars::Rover::Rover.new(*ARGV)
