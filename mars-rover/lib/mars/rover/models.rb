@@ -23,6 +23,14 @@ module Mars
           end
         end
 
+        def change_x(value)
+          @x += value
+        end
+
+        def change_y(value)
+          @y += value
+        end
+
         def to_s
           "(#{@x},#{@y})"
         end
@@ -30,6 +38,13 @@ module Mars
       
       class Direction
         DIRECTIONS = ["N", "E", "S", "W"]
+
+        class << self
+          def is_direction(ch)
+            DIRECTIONS.include?(ch)
+          end
+        end
+
 
         def initialize(direction="N")
           @current = DIRECTIONS.index direction.upcase

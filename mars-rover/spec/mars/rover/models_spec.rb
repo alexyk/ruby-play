@@ -24,5 +24,47 @@ RSpec.describe Mars::Rover::Models do
       pos.change([1,5])
       expect(pos.to_s).to eq('1,5')
     end
+
+    it "change_x in range" do
+      pos = Mars::Rover::Models::Position.new(0,0)
+      expect(pos.to_s).to eq('0,0')
+
+      pos.change_x(1)
+      expect(pos.to_s).to eq('1,0')
+
+      pos.change_x(3)
+      expect(pos.to_s).to eq('4,0')
+
+      pos.change_x(-2)
+      expect(pos.to_s).to eq('2,0')
+    end
+
+    it "change_y in range" do
+      pos = Mars::Rover::Models::Position.new(0,0)
+      expect(pos.to_s).to eq('0,0')
+
+      pos.change_y(3)
+      expect(pos.to_s).to eq('0,3')
+
+      pos.change_y(-1)
+      expect(pos.to_s).to eq('0,2')
+    end
+
+    it "change_x and change_y in succession, in range" do
+      pos = Mars::Rover::Models::Position.new(0,0)
+      expect(pos.to_s).to eq('0,0')
+
+      pos.change_y(3)
+      expect(pos.to_s).to eq('0,3')
+
+      pos.change_x(5)
+      expect(pos.to_s).to eq('5,3')
+
+      pos.change_y(-2)
+      expect(pos.to_s).to eq('5,1')
+
+      pos.change_x(-3)
+      expect(pos.to_s).to eq('2,1')
+    end
   end
 end

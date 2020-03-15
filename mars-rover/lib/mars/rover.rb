@@ -1,5 +1,6 @@
 require "mars/rover/version"
 require "mars/rover/models"
+require "mars/rover/actors"
 
 module Mars
   module Rover
@@ -13,11 +14,26 @@ module Mars
           return
         end
 
-        @cmd = cmd
         @direction = Mars::Rover::Models::Direction.new(direction)
         @position = Mars::Rover::Models::Position.new(positionX, positionY)
         @grid_limits = Mars::Rover::Models::GridLimits.new(10,10)
         @obstacles = []
+
+        if @auto_start
+          p
+          p "Processing cmd '#{@cmd}'..."
+          config = {
+            "position" => @position,
+            "direction" => @direction,
+            "grid_limits" => @grid_limits,
+            "obstacles" => obstacles
+          }
+          
+          cmd_processor = Mars::Rover::Actors::CommandProcessor.new()
+          result = cmd_processor.process(@cmd, config)
+          p "Result: #{result}"
+          p
+        end
       end
 
       def add_obstacle(*params)
@@ -54,6 +70,10 @@ module Mars
           print_help
           return false
         end
+
+        @auto_start = (cmd.include? 'auto:') 
+        @cmd = cmd.sub('auto:', "")
+
 
         return true
       end
