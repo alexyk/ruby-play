@@ -9,19 +9,18 @@ module Mars
     class Rover
       attr_reader :cmd, :direction, :position, :grid_limits, :obstacles
 
-      def initialize(cmd=nil, direction="N", positionX=0, positionY=0)
+      def initialize(cmd=nil, direction="N", position_x=0, position_y=0)
         if ! check_cmd(cmd)
           return
         end
 
         @direction = Mars::Rover::Models::Direction.new(direction)
-        @position = Mars::Rover::Models::Position.new(positionX, positionY)
+        @position = Mars::Rover::Models::Position.new(position_x, position_y)
         @grid_limits = Mars::Rover::Models::GridLimits.new(10,10)
         @obstacles = []
 
         if @auto_start
-          p
-          p "Processing cmd '#{@cmd}'..."
+          puts "  > Processing cmd '#{@cmd}'..."
           config = {
             "position" => @position,
             "direction" => @direction,
@@ -31,8 +30,7 @@ module Mars
           
           cmd_processor = Mars::Rover::Actors::CommandProcessor.new()
           result = cmd_processor.process(@cmd, config)
-          p "Result: #{result}"
-          p
+          puts "  > Result: #{result}"
         end
       end
 
@@ -43,14 +41,14 @@ module Mars
       def to_s
         res = '[Mars Rover] '
         res += "dir: '#{@direction}', "
-        res += "position: #{@position.to_s}, "
+        res += "position: #{@position.to_s2}, "
         res += "limits: #{@grid_limits.to_s}, "
         res += "cmd: '#{@cmd}', "
 
         n = 1
         len = @obstacles.count
         for item in @obstacles
-          res += "o#{n}: #{item.to_s}"
+          res += "o#{n}: #{item.to_s2}"
           n += 1
           res += ", " if n <= len
         end

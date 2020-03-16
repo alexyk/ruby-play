@@ -1,6 +1,13 @@
 RSpec.describe Mars::Rover::Actors do
+  context "process normal movement" do
+    cmd_processor = Mars::Rover::Actors::CommandProcessor.new()
+
+    xit "process normal movement in range" do
+      # todo
+    end
+  end
+
   context "process commands limits" do
-=begin
     xit "left out of bounds" do
       # todo
     end
@@ -20,7 +27,6 @@ RSpec.describe Mars::Rover::Actors do
     xit "obstacle case 1" do
       # todo
     end
-=end
   end
 
   context "process commands with obstacles" do
@@ -28,4 +34,13 @@ RSpec.describe Mars::Rover::Actors do
     
     end
   end
+end
+
+def generate_config()
+  {
+    "position" => @position,
+    "direction" => @direction,
+    "grid_limits" => @grid_limits,
+    "obstacles" => obstacles
+  }
 end

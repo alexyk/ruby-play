@@ -8,7 +8,7 @@ RSpec.describe Mars::Rover do
     rover = Mars::Rover::Rover.new(cmd)
 
     it "start at (0,0)" do
-      expect(rover.position.to_s).to eq "(0,0)"
+      expect(rover.position.to_s2).to eq "(0,0)"
     end
 
     it "initial direction is N" do

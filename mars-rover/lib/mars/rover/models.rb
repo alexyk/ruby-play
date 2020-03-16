@@ -32,6 +32,10 @@ module Mars
         end
 
         def to_s
+          "#{@x},#{@y}"
+        end
+
+        def to_s2
           "(#{@x},#{@y})"
         end
       end

@@ -30,7 +30,7 @@ module Mars
             end
           }
 
-          position
+          "#{position},#{direction}"
         end
       end
     end
