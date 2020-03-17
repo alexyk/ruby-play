@@ -42,25 +42,25 @@ module Mars
       
       class Direction
         DIRECTIONS = ["N", "E", "S", "W"]
-
+        
         class << self
-          def is_direction(ch)
-            DIRECTIONS.include?(ch)
+          def is_rotation?(ch)
+            ["R", "L"].include?(ch)
           end
         end
-
 
         def initialize(direction="N")
           @current = DIRECTIONS.index direction.upcase
         end
 
-        def rotate(direction)
-          if direction == "L"
-            @current = (@current > 0) ? (@current - 1) : DIRECTIONS.count-1
-          elsif direction == "R"
-            @current = (@current < DIRECTIONS.count-1) ? (@current + 1) : 0
-          else
-            raise Error, "Direction '#{direction}' is not a valid value - should be 'R' or 'L'"
+        def rotate(rotation_type)
+          case rotation_type
+            when "L"
+              @current = (@current > 0) ? (@current - 1) : DIRECTIONS.count-1
+            when "R"
+              @current = (@current < DIRECTIONS.count-1) ? (@current + 1) : 0
+            else
+              raise Error, "Rotation '#{rotation_type}' is not a valid value - should be 'R' or 'L'"
           end
           self.to_s
         end
