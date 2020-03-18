@@ -7,6 +7,8 @@ module Mars
       class Error < StandardError; end
 
       class Position
+        attr_reader :x, :y
+
         def initialize(*params)
           self.change(*params)
         end
@@ -56,18 +58,24 @@ module Mars
           @current = DIRECTIONS.index direction.upcase
         end
 
-        def rotate(rotation_type)
-          case rotation_type
-            when "L"
-              @current = (@current > 0) ? (@current - 1) : DIRECTIONS.count-1
-            when "R"
-              @current = (@current < DIRECTIONS.count-1) ? (@current + 1) : 0
-            else
-              raise Error, "Rotation '#{rotation_type}' is not a valid value - should be 'R' or 'L'"
-          end
+        def rotate(rotation_commands)
+          rotation_commands.each_char { |rotation_type|
+            case rotation_type
+              when "L"
+                @current = (@current > 0) ? (@current - 1) : DIRECTIONS.count-1
+              when "R"
+                @current = (@current < DIRECTIONS.count-1) ? (@current + 1) : 0
+              else
+                raise Error, "Rotation '#{rotation_type}' is not a valid value - should be 'R' or 'L'"
+            end
+          }
           self.to_s
         end
 
+        def rotate_180()
+          self.rotate('RR')
+        end
+        
         def to_s
           "#{DIRECTIONS[@current]}"
         end

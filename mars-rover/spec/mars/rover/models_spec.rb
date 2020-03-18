@@ -109,7 +109,7 @@ RSpec.describe Mars::Rover::Models do
       expect(dir.to_s).to eq 'N'
     end
 
-    it "can change to left using Direction.rotate('R')" do
+    it "can change to right using Direction.rotate('R')" do
       dir.rotate('R')
       expect(dir.to_s).to eq "E"
       dir.rotate('R')
@@ -120,7 +120,7 @@ RSpec.describe Mars::Rover::Models do
       expect(dir.to_s).to eq "N"
     end
 
-    it "can change to right using Direction.rotate('L')" do
+    it "can change to left using Direction.rotate('L')" do
       dir.rotate('L')
       expect(dir.to_s).to eq "W"
       dir.rotate('L')
@@ -129,6 +129,29 @@ RSpec.describe Mars::Rover::Models do
       expect(dir.to_s).to eq "E"
       dir.rotate('L')
       expect(dir.to_s).to eq "N"
+    end
+
+    it "can rotate multiple times" do
+      dir.rotate('LL')
+      expect(dir.to_s).to eq "S"
+      dir.rotate('RRR')
+      expect(dir.to_s).to eq "E"
+    end
+    
+    it "can rotate 180 degrees" do
+      expect(dir.to_s).to eq "N"
+      dir.rotate_180()
+      expect(dir.to_s).to eq "S"
+      
+      dir.rotate('R')
+      expect(dir.to_s).to eq "W"
+      dir.rotate_180()
+      
+      dir.rotate_180()
+      expect(dir.to_s).to eq "W"
+      
+      dir.rotate_180()
+      expect(dir.to_s).to eq "E"
     end
   end
 
