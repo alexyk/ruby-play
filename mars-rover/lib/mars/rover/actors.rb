@@ -1,13 +1,12 @@
 module Mars
   module Rover
     module Actors    
-      class Error < StandardError; end
+
       P_VER = 2 # (=1) Version 1 of debug output (=2) Version 2 - with ROT/MOV and symbols ->, *
+
+      class Error < StandardError; end
       
       class CommandProcessor
-        def initialize()
-        end
-        
         def process(cmd, config=nil)
           @config = config if !config.nil?
           position, direction, grid_limits, obstacles = config.values_at(

@@ -3,6 +3,7 @@ require "mars/rover/version"
 module Mars
   module Rover
     module Models
+    
       class Error < StandardError; end
 
       class Position
@@ -40,9 +41,10 @@ module Mars
         end
       end
       
+      
       class Direction
         DIRECTIONS = ["N", "E", "S", "W"]
-	ROTATIONS = ["R", "L"]
+        ROTATIONS = ["R", "L"]
         
         class << self
           def is_rotation?(ch)
@@ -71,6 +73,7 @@ module Mars
         end
       end
 
+
       class GridLimits
         attr_reader :max_x, :max_y
 
@@ -83,6 +86,7 @@ module Mars
           "(maxX=#{@max_x}, maxY=#{@max_y})"
         end
       end
+      
     end
   end
 end
