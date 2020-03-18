@@ -1,20 +1,16 @@
 module Mars
   module Rover
     module Actors    
-
-      P_VER = 2 # (=1) Version 1 of debug output (=2) Version 2 - with ROT/MOV and symbols ->, *
-
       class Error < StandardError; end
+      P_VER = 2 # (=1) Version 1 of debug output (=2) Version 2 - with ROT/MOV and symbols ->, *
       
       class CommandProcessor
         def process(cmd, config=nil)
           @config = config if !config.nil?
-          position, direction, grid_limits, obstacles = config.values_at(
-            "position",
-            "direction",
-            "grid_limits",
-            "obstacles"
-          )          
+          position = config.position
+          direction = config.direction
+          grid_limits = config.grid_limits
+          obstacles = config.obstacles
           
           String(cmd).each_char { |ch|
             is_rotation = Mars::Rover::Models::Direction.is_rotation?(ch)

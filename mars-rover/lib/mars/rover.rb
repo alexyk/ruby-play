@@ -1,6 +1,8 @@
 require "mars/rover/version"
 require "mars/rover/models"
 require "mars/rover/actors"
+require "mars/rover/state"
+
 
 module Mars
   module Rover
@@ -11,51 +13,41 @@ module Mars
       PARAM_STOP_AT_START = 'start:' # used for testing and/or debug of initial
                                      # state without processin◊g command input
       PARAM_DEBUG = 'debug:'         # used to set debug to 'true'
-      attr_reader :cmd, :direction, :position, :grid_limits, :obstacles
+      attr_reader :cmd, :config
 
       def initialize(cmd=nil, direction="N", position_x=0, position_y=0)
         if ! check_cmd(cmd)
           return
         end
 
-        @direction = Mars::Rover::Models::Direction.new(direction)
-        @position = Mars::Rover::Models::Position.new(position_x, position_y)
-        @grid_limits = Mars::Rover::Models::GridLimits.new(10,10)
-        @obstacles = []
+        @config = Mars::Rover::State::Config.new(direction, position_x, position_y)
 
         if @auto_start
           puts "  > Processing cmd '#{@cmd}'..."
-          config = {
-            "position" => @position,
-            "direction" => @direction,
-            "grid_limits" => @grid_limits,
-            "obstacles" => obstacles
-          }
-          
           cmd_processor = Mars::Rover::Actors::CommandProcessor.new()
-          result = cmd_processor.process(@cmd, config)
+          result = cmd_processor.process(@cmd, @config)
           puts "  > Result: #{result}"
         end
+      end
+
+      def add_obstacle(*params)
+        @config.add_obstacle(*params)
       end
 
       def to_s
         res = "[Mars Rover, version #{VERSION}] "
         details = [
           "command: '#{@cmd}'",
-          "direction: '#{@direction}'",
-          "position: #{@position.to_s2}",
-          "limits: #{@grid_limits.to_s}"
+          "direction: '#{@config.direction}'",
+          "position: #{@config.position.to_s2}",
+          "limits: #{@config.grid_limits.to_s}"
         ]
-        
-        if @obstacles.count > 0
-          details.append(obstacles_to_s())
-        end
+        details.append(config.obstacles_to_s())
         res += details.join(', ')
 
         res
       end
       
-
       def check_cmd(cmd)
         if cmd.nil?
           puts

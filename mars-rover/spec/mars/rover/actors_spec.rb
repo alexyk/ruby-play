@@ -1,9 +1,32 @@
 RSpec.describe Mars::Rover::Actors do
   context "process normal movement" do
-    cmd_processor = Mars::Rover::Actors::CommandProcessor.new()
+    config = nil
+    cmd_processor = nil
 
-    xit "process normal movement in range" do
-      # todo
+    before(:all) do
+      cmd_processor = Mars::Rover::Actors::CommandProcessor.new()
+    end
+
+    after(:all) do
+      cmd_processor = nil
+    end
+
+    before(:each) do
+      config = Mars::Rover::State::Config.new()
+    end
+    
+    after(:each) do
+      config = nil
+    end
+
+    it "process normal movement in range 1" do
+      res = cmd_processor.process('RMMMLMM', config)
+      expect(res).to eq "3,2,N"
+    end
+    
+    it "process normal movement in range 2" do
+      res = cmd_processor.process('MMMRMM', config)
+      expect(res).to eq "2,3,E"
     end
   end
 
