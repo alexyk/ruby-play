@@ -1,10 +1,14 @@
 #!/usr/bin/env bash
 
+file_name="$1"
+test_descr="$2"
 
 while ((1)); do
   clear;
-  if [ $#  -gt 0 ]; then
-    rspec "$@"
+  if [ $#  -ge 2 ]; then
+    rspec "$file_name" -e "$test_descr"
+  elif [ $#  -gt 0 ]; then
+    rspec "$file_name"
   else
     rake spec
   fi

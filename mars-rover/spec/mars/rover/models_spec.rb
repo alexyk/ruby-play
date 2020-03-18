@@ -92,6 +92,12 @@ RSpec.describe Mars::Rover::Models do
       expect(obstacles.count).to eq 2
       expect(obstacles.to_s).to eq "o1: (0,7), o2: (3,2)"
     end
+
+    it "can check if contains an item" do
+      obstacles.add(0,7)
+      expect(obstacles.contain?(Mars::Rover::Models::Position.new(0,0))).to eq false
+      expect(obstacles.contain?(Mars::Rover::Models::Position.new(0,7))).to eq true
+    end
   end
 
   describe "Direction" do

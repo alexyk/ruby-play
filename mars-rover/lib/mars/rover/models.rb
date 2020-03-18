@@ -18,8 +18,12 @@ module Mars
             @x = 0
             @y = 0
           elsif params.count == 1 && params[0].is_a?(Array)
-            @x = Integer(params[0][0])
-            @y = Integer(params[0][1])
+            if params[0].count == 2
+              @x = Integer(params[0][0])
+              @y = Integer(params[0][1])
+            else
+              raise Error, "Cannot create Position intstance. Two params x and y needed or an array with length 2. Current array has #{params[0].count} item(s)"
+            end
           else
             @x = Integer(params[0])
             @y = Integer(params[1])
@@ -75,7 +79,7 @@ module Mars
         def rotate_180()
           self.rotate('RR')
         end
-        
+
         def to_s
           "#{DIRECTIONS[@current]}"
         end
@@ -98,6 +102,12 @@ module Mars
       class Obstacles < Array
         def add(*params)
           self.append(Mars::Rover::Models::Position.new(*params))
+        end
+
+        def contain?(item)
+          # TODO: Improve - see if Array has something appropriate or improve this impl
+          s = self.to_s
+          s.include?(item.to_s2)
         end
 
         def to_s

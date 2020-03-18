@@ -3,23 +3,17 @@ RSpec.describe Mars::Rover::Actors do
     config = nil
     cmd_processor = nil
 
-    before(:all) do
-      cmd_processor = Mars::Rover::Actors::CommandProcessor.new()
-    end
-
-    after(:all) do
-      cmd_processor = nil
-    end
-
     before(:each) do
+      cmd_processor = Mars::Rover::Actors::CommandProcessor.new()
       config = Mars::Rover::State::Config.new()
     end
     
     after(:each) do
+      cmd_processor = nil
       config = nil
     end
 
-    describe "process movement" do
+    context "process movement" do
       test_cases = {
         "within grid range" => [
           ['RMMMLMM','3,2,N'],
@@ -53,17 +47,45 @@ RSpec.describe Mars::Rover::Actors do
     end
 
 
-    context "with obstacles" do
-      xit "with 1 obstacle at (0,1)" do
-        obstacles = config.obstacles
-        
-        expect(obstacles.count).to eq 0
-        obstacles.add(0,1)        
-        expect(obstacles.count).to eq 1
+    context "process movement with obstacles" do
+      error_actors = Mars::Rover::Actors::Error
+      error_models = Mars::Rover::Models::Error
 
-        result = cmd_processor.process('MMR', config)
-        expect(result).to eq 'O,0,0,N'
-      end
+
+      test_cases = [
+        ['MMR',[0,1],'O,0,0,N'],
+        ['MMMMMMMMMRR',[0,9],'O,0,8,N'],
+        ['MMMMMMMMMRMMMMMMMMMM',[9,9],'O,8,9,E'],
+        ['WMMM',[1,0],'throws an error', [error_actors, "Unknown command 'W' at index = 0. Not a [M]ove or rotation(L,R) command"]],
+        ['WMMM',[],'throws an error', [error_actors, "Unknown command 'W' at index = 0. Not a [M]ove or rotation(L,R) command"]],
+      ]
+
+      test_cases.each_index { |i|
+        input, obstacle_position, expected, error = test_cases[i]
+        if obstacle_position.count == 2
+          obstacle = Mars::Rover::Models::Position.new(obstacle_position)
+        else
+          obstacle = []
+        end
+
+        it "obstacle at (#{obstacle.to_s})     cmd: #{input} -> expected: #{expected}" do
+          obstacles = config.obstacles
+
+          if error.nil?
+            expect(obstacles.count).to eq 0
+            obstacles.add(obstacle.x, obstacle.y)
+            expect(obstacles.count).to eq 1
+    
+            result = cmd_processor.process(input, config)
+            expect(result).to eq expected
+          else
+            expect {
+              cmd_processor.process(input, config)
+              obstacles.add(obstacle_position)
+            }.to raise_error(error[0], error[1])
+          end
+        end
+      }
     end
   end
 end

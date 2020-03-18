@@ -1,10 +1,13 @@
 # Mars::Rover
 
-Welcome to your new gem! In this directory, you'll find the files you need to be able to package up your Ruby library into a gem. Put your Ruby code in the file `lib/mars/rover`. To experiment with that code, run `bin/console` for an interactive prompt.
+Start with `bin/start <cmd>` - for example `bin/start RMMM`.  
+Get help with `bin/start help`.  
+Test with `bin/test [spec-path] [test-description]`.  
+Automatic testing with `bin/test-watch` - file changes observed.  
+Manual testing with `bin/console`.  
 
-## Usage
 
-TODO: Write usage instructions here
+
 
 ## Development
 `
