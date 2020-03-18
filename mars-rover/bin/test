@@ -1,7 +1,21 @@
 #!/usr/bin/env bash
 
-if [ $#  -gt 0 ]; then
-  rspec "$@"
-else
-  rake spec
-fi
+
+while ((1)); do
+  clear;
+  if [ $#  -gt 0 ]; then
+    rspec "$@"
+  else
+    rake spec
+  fi
+
+  echo
+  echo "------- Press ENTER to continue retesting -------"
+  read -p "> Or type x/q/exit/quit/^C to stop: " choice
+
+  case $choice in
+    "x" | "q" | "exit" | "quit" )
+      break;
+      ;;
+  esac
+done
