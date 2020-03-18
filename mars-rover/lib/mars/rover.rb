@@ -30,10 +30,6 @@ module Mars
         end
       end
 
-      def add_obstacle(*params)
-        @config.add_obstacle(*params)
-      end
-
       def to_s
         res = "[Mars Rover, version #{VERSION}] "
         details = [
@@ -42,7 +38,7 @@ module Mars
           "position: #{@config.position.to_s2}",
           "limits: #{@config.grid_limits.to_s}"
         ]
-        details.append(config.obstacles_to_s())
+        details.append(config.obstacles.to_s())
         res += details.join(', ')
 
         res

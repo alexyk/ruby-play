@@ -86,7 +86,22 @@ module Mars
           "(maxX=#{@max_x}, maxY=#{@max_y})"
         end
       end
-      
+   
+      class Obstacles < Array
+        def add(*params)
+          self.append(Mars::Rover::Models::Position.new(*params))
+        end
+
+        def to_s
+          res = []
+          for item in self
+            res.append("o#{res.count + 1}: #{item.to_s2}")
+          end
+          
+          res.join(', ')
+        end
+      end
+
     end
   end
 end
