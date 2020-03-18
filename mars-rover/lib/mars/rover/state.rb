@@ -12,18 +12,7 @@ module Mars
           @direction = Mars::Rover::Models::Direction.new(direction)
           @grid_limits = Mars::Rover::Models::GridLimits.new(10,10)
           @obstacles = Mars::Rover::Models::Obstacles.new()
-  
-          if @auto_start
-            puts "  > Processing cmd '#{@cmd}'..."
-            config = {
-              "position" => @position,
-              "direction" => @direction,
-              "grid_limits" => @grid_limits,
-              "obstacles" => obstacles
-            }
-          end
         end
-        
       end
      
     end

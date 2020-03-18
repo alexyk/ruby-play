@@ -1,8 +1,12 @@
+require "mars/rover/models"
+
 module Mars
   module Rover
-    module Actors    
-      class Error < StandardError; end
+    module Actors
+
       P_VER = 2 # (=1) Version 1 of debug output (=2) Version 2 - with ROT/MOV and symbols ->, *
+      
+      class Error < StandardError; end
       
       class CommandProcessor
         def process(cmd, config=nil)

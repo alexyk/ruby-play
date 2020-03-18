@@ -1,12 +1,13 @@
 require "mars/rover/version"
-require "mars/rover/models"
 require "mars/rover/actors"
 require "mars/rover/state"
 
 
 module Mars
   module Rover
+
     DEBUG = false || ((ARGV[0] || ['']).include?('debug:'))
+
     class Error < StandardError; end
 
     class Rover
@@ -88,5 +89,6 @@ module Mars
         puts
       end
     end
+    
   end
 end
