@@ -8,11 +8,12 @@ module Mars
     class Error < StandardError; end
 
     class Rover
+      PARAM_STOP_AT_START = 'start:' # used for testing and/or debug of initial
+                                     # state without processin◊g command input
+      PARAM_DEBUG = 'debug:'         # used to set debug to 'true'
       attr_reader :cmd, :direction, :position, :grid_limits, :obstacles
 
       def initialize(cmd=nil, direction="N", position_x=0, position_y=0)
-        @stop_at_start = 'start:' # used for testing and/or debug of initial
-                                  # state without processing command input
         if ! check_cmd(cmd)
           return
         end
@@ -37,10 +38,6 @@ module Mars
         end
       end
 
-      def add_obstacle(*params)
-        @obstacles.append(Mars::Rover::Models::Position.new(*params))
-      end
-
       def to_s
         res = "[Mars Rover, version #{VERSION}] "
         details = [
@@ -58,13 +55,6 @@ module Mars
         res
       end
       
-      def obstacles_to_s()
-        res = []
-        for item in @obstacles
-          res.append("o#{res.count + 1}: #{item.to_s2}")
-        end
-        res.join(', ')
-      end
 
       def check_cmd(cmd)
         if cmd.nil?
@@ -79,11 +69,14 @@ module Mars
           print_help
           return false
         end
-        
-        @auto_start = (!cmd.include? @stop_at_start) 
-        @auto_start && cmd = cmd.sub(@stop_at_start, "")
-        if cmd.include?("debug:")
-          cmd = cmd.sub('debug:', "")
+
+        @auto_start = true
+        if (cmd.include? PARAM_STOP_AT_START) 
+          @auto_start = false
+          cmd = cmd.sub(PARAM_STOP_AT_START, "")
+        end
+        if cmd.include?(PARAM_DEBUG)
+          cmd = cmd.sub(PARAM_DEBUG, "")
         end
         @cmd = cmd
 

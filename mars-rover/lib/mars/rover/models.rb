@@ -42,10 +42,11 @@ module Mars
       
       class Direction
         DIRECTIONS = ["N", "E", "S", "W"]
+	ROTATIONS = ["R", "L"]
         
         class << self
           def is_rotation?(ch)
-            ["R", "L"].include?(ch)
+            ROTATIONS.include?(ch)
           end
         end
 

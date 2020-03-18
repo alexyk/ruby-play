@@ -5,7 +5,7 @@ RSpec.describe Mars::Rover do
 
   context "rules" do
     cmd = "RMMLM"
-    rover = Mars::Rover::Rover.new(cmd)
+    rover = Mars::Rover::Rover.new('start:' + cmd)
 
     it "start at (0,0)" do
       expect(rover.position.to_s2).to eq "(0,0)"
