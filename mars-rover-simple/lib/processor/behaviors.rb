@@ -1,3 +1,22 @@
+def apply_behaviors(ch, i)
+  old_position = $position.clone
+
+  if ROTATIONS.include? ch
+    rotate_direction(ch)
+  elsif ch == "M"
+    apply_wrapping_movement_behavior(old_position)
+    apply_obstacle_behavior(old_position)
+
+    if ! $obstacle_result.nil?
+      return false
+    end
+  else
+    DEBUG && puts("    #{P_VER == 2 ? '  ' : ''}[WARN] '#{ch}' - unknown command, skipping ...")
+    raise StandardError, "Unknown command '#{ch}' at index = #{i}. Not a [M]ove or rotation(L,R) command"
+  end
+  
+  true
+end
 
 
 def apply_obstacle_behavior(old_position)

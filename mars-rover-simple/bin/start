@@ -3,12 +3,14 @@
 # add lib folder
 $LOAD_PATH.unshift File.dirname(__FILE__) + '/../lib'
 
-require "mars-rover-simple/main"
 
-if ARGV.count == 0
-  puts "One argument needed - the command to execute."
-  puts "Example: 'bin/start RMMLMLM'"
+require "main"
+require "print/version"
+
+if ARGV.count == 0 or ['help', '--help', "?", "/?"].include? ARGV[0]
+  require "print/help"
 else
-  puts "Command: #{ARGV[0]}"
-  puts "Result: #{process_cmd(ARGV[0])}"
+  require "processor/exec"
+  require "print/input"
+  require "print/result"
 end
