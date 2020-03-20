@@ -13,8 +13,8 @@ module Mars
           change(*params)
         end
 
-        def equals?(other)
-          other.x == x && other.y == y
+        def equals?(obstacle)
+          [x, y] == obstacle
         end
 
         def change(*params)
@@ -100,16 +100,6 @@ module Mars
 
         def to_s
           "(maxX=#{@max_x}, maxY=#{@max_y})"
-        end
-      end
-   
-      class Obstacles < Array
-        def add(*params)
-          append(Mars::Rover::Models::Position.new(*params))
-        end
-
-        def to_s
-          map.with_index { |item, i| "o#{i + 1}: #{item.to_s2}" }.join(', ')
         end
       end
 

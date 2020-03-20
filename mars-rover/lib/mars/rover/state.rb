@@ -11,7 +11,7 @@ module Mars
           @position = Mars::Rover::Models::Position.new(position_x, position_y)
           @direction = Mars::Rover::Models::Direction.new(direction)
           @grid_limits = Mars::Rover::Models::GridLimits.new(10,10)
-          @obstacles = Mars::Rover::Models::Obstacles.new()
+          @obstacles = []
         end
       end
      

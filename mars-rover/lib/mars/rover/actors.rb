@@ -43,7 +43,7 @@ module Mars
         end
 
         def _apply_obstacle_behavior(old_position, position, obstacles)
-          if obstacles.any? { |item| item.equals? position }
+          if obstacles.any? { |item| position.equals? item }
             position.change(old_position.x, old_position.y)
             @obstacle_result = "O"
           end

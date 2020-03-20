@@ -38,10 +38,11 @@ RSpec.describe Mars::Rover do
       obstacles = rover.config.obstacles
 
       expect(obstacles.count).to eq 0
-      obstacles.add(0,4)
-      obstacles.add([2,7])
+      obstacles.append([0,4])
+      obstacles.append([2,7])
       expect(obstacles.count).to eq 2
-      expect(obstacles.to_s).to eq "o1: (0,4), o2: (2,7)"
+      # expect(obstacles.to_s).to eq "o1: (0,4), o2: (2,7)"
+      expect(obstacles).to eq [[0,4], [2,7]]
     end
   end
 end

@@ -25,7 +25,7 @@ RSpec.describe Mars::Rover::State do
       end
       
       it "inits with 0 obstacles" do
-        expect(config.obstacles.to_s).to eq ""
+        expect(config.obstacles).to eq []
       end
     end
   end

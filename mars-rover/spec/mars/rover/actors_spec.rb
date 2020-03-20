@@ -61,19 +61,14 @@ RSpec.describe Mars::Rover::Actors do
       ]
 
       test_cases.each_index { |i|
-        input, obstacle_position, expected, error = test_cases[i]
-        if obstacle_position.count == 2
-          obstacle = Mars::Rover::Models::Position.new(obstacle_position)
-        else
-          obstacle = []
-        end
+        input, obstacle, expected, error = test_cases[i]
 
         it "obstacle at (#{obstacle.to_s})     cmd: #{input} -> expected: #{expected}" do
           obstacles = config.obstacles
 
           if error.nil?
             expect(obstacles.count).to eq 0
-            obstacles.add(obstacle.x, obstacle.y)
+            obstacles.append(obstacle)
             expect(obstacles.count).to eq 1
     
             result = cmd_processor.process(input, config)
@@ -81,7 +76,7 @@ RSpec.describe Mars::Rover::Actors do
           else
             expect {
               cmd_processor.process(input, config)
-              obstacles.add(obstacle_position)
+              obstacles.append(obstacle)
             }.to raise_error(error[0], error[1])
           end
         end

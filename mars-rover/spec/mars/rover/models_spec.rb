@@ -74,7 +74,7 @@ RSpec.describe Mars::Rover::Models do
     obstacles = nil
 
     before(:each) do
-      obstacles = Mars::Rover::Models::Obstacles.new
+      obstacles = []
     end
     
     after(:each) do
@@ -86,17 +86,18 @@ RSpec.describe Mars::Rover::Models do
     end
 
     it "can add new items" do
-      obstacles.add(0,7)
+      obstacles.append([0,7])
       expect(obstacles.count).to eq 1
-      obstacles.add(3,2)
+      obstacles.append([3,2])
       expect(obstacles.count).to eq 2
-      expect(obstacles.to_s).to eq "o1: (0,7), o2: (3,2)"
+      expect(obstacles).to eq [[0, 7], [3, 2]]
     end
 
-    xit "can check if contains an item" do
-      obstacles.add(0,7)
-      expect(obstacles.contain?(Mars::Rover::Models::Position.new(0,0))).to eq false
-      expect(obstacles.contain?(Mars::Rover::Models::Position.new(0,7))).to eq true
+    it "can check if contains an item" do
+      obstacles.append([0,7])
+
+      expect(obstacles.any? { |item| item == [0,0] }).to eq false
+      expect(obstacles.any? { |item| item == [0,7] }).to eq true
     end
   end
 
