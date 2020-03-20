@@ -1,8 +1,8 @@
-require_relative 'lib/mars/rover/simple/version'
+require_relative 'lib/mars-rover-simple/version'
 
 Gem::Specification.new do |spec|
   spec.name          = "mars-rover-simple"
-  spec.version       = Mars::Rover::Simple::VERSION
+  spec.version       = MarsRoverSimple::VERSION
   spec.authors       = ["alexyk"]
   spec.email         = [" "]
 

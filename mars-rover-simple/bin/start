@@ -3,5 +3,7 @@
 # add lib folder
 $LOAD_PATH.unshift File.dirname(__FILE__) + '/../lib'
 
-require "mars/rover"
-Mars::Rover::Rover.new(*ARGV)
+require "mars-rover-simple/main"
+
+puts "Command: #{ARGV[0]}"
+puts "Result: #{process_cmd(ARGV[0])}"

@@ -3,7 +3,6 @@
 ## Usage
 
 Start with `bin/start <cmd>` - for example `bin/start RMMM`.  
-Get help with `bin/start help`.  
 Test with `bin/test [spec-path] [test-description]`.  
 Automatic testing with `bin/test-watch` - file changes observed.  
 Manual testing with `bin/console`.  

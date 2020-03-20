@@ -68,8 +68,6 @@ module Mars
           cmd = cmd.sub(PARAM_DEBUG, "")
         end
         @cmd = cmd
-
-
         return true
       end
 
@@ -84,8 +82,8 @@ module Mars
         puts "                      processing command, or 'debug:' for turning debug on. (examples: '#{PARAM_STOP_AT_START}RMMM', "
         puts "                      'debug:#{PARAM_STOP_AT_START}LMMM', 'debug:#{PARAM_STOP_AT_START}LMMM' etc."
         puts "    start-direction   optional - one of 'N', 'S', 'W' or 'E' (default is 'N')"
-        puts "    start-x           optional - start x position (default is 0"
-        puts "    start-y           optional - start y position (default is 0"
+        puts "    start-x           optional - start x position (default is 0)"
+        puts "    start-y           optional - start y position (default is 0)"
         puts
       end
     end

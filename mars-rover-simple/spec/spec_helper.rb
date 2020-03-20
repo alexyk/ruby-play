@@ -1,5 +1,6 @@
 require "bundler/setup"
-require "mars/rover/simple"
+
+require "mars-rover-simple/main"
 
 RSpec.configure do |config|
   # Enable flags like --only-failures and --next-failure
