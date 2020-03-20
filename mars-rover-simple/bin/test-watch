@@ -1,0 +1,6 @@
+#!/usr/bin/env bash
+
+bundle exec guard
+
+# no errors output
+# bundle exec guard 2>/dev/null
