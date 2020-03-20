@@ -10,7 +10,11 @@ module Mars
         attr_reader :x, :y
 
         def initialize(*params)
-          self.change(*params)
+          change(*params)
+        end
+
+        def equals?(other)
+          other.x == x && other.y == y
         end
 
         def change(*params)
@@ -73,11 +77,11 @@ module Mars
                 raise Error, "Rotation '#{rotation_type}' is not a valid value - should be 'R' or 'L'"
             end
           }
-          self.to_s
+          to_s
         end
 
         def rotate_180()
-          self.rotate('RR')
+          rotate('RR')
         end
 
         def to_s
@@ -101,22 +105,11 @@ module Mars
    
       class Obstacles < Array
         def add(*params)
-          self.append(Mars::Rover::Models::Position.new(*params))
-        end
-
-        def contain?(item)
-          # TODO: Improve - see if Array has something appropriate or improve this impl
-          s = self.to_s
-          s.include?(item.to_s2)
+          append(Mars::Rover::Models::Position.new(*params))
         end
 
         def to_s
-          res = []
-          for item in self
-            res.append("o#{res.count + 1}: #{item.to_s2}")
-          end
-          
-          res.join(', ')
+          map.with_index { |item, i| "o#{i + 1}: #{item.to_s2}" }.join(', ')
         end
       end
 

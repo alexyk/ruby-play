@@ -16,12 +16,8 @@ module Mars
           grid_limits = config.grid_limits
           obstacles = config.obstacles
           @obstacle_result = nil
-
-          cmd_length = cmd.length
         
-          for i in 0..cmd_length-1
-            ch = cmd[i,1]
-
+          cmd.chars.each_with_index do |ch, i|
             is_rotation = Mars::Rover::Models::Direction.is_rotation?(ch)
             old_position = @config.position.clone
 
@@ -47,7 +43,7 @@ module Mars
         end
 
         def _apply_obstacle_behavior(old_position, position, obstacles)
-          if obstacles.contain?(position)
+          if obstacles.any? { |item| item.equals? position }
             position.change(old_position.x, old_position.y)
             @obstacle_result = "O"
           end
