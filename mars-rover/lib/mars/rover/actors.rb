@@ -53,7 +53,7 @@ module Mars
         def _apply_wrapping_movement_behavior(old_position, position, direction, grid_limits, obstacles)
           case direction.to_s
             when "N"
-              if position.y == grid_limits.max_y
+              if position.y == grid_limits[1]
                 direction.rotate_180()
               else
                 position.change_y(1)
@@ -65,7 +65,7 @@ module Mars
                 position.change_y(-1)
               end
             when "E"
-              if position.x == grid_limits.max_x
+              if position.x == grid_limits[0]
                 direction.rotate_180()
               else
                 position.change_x(1)

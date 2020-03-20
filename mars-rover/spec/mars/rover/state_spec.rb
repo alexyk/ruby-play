@@ -20,8 +20,8 @@ RSpec.describe Mars::Rover::State do
         expect(config.direction.to_s).to eq 'N'
       end
       
-      it "inits with grid limits 10,10 - translated to maxX=9, maxY=9" do
-        expect(config.grid_limits.to_s).to eq '(maxX=9, maxY=9)'
+      it "inits with grid limits 10,10 (max_x = 9, max_y = 9)" do
+        expect(config.grid_limits).to eq [9,9]
       end
       
       it "inits with 0 obstacles" do

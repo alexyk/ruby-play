@@ -26,8 +26,8 @@ RSpec.describe Mars::Rover do
       expect(rover.config.direction.to_s).to eq "N"
     end
 
-    it "grid is 10x10" do
-      expect(rover.config.grid_limits.to_s).to eq "(maxX=9, maxY=9)"
+    it "grid is 10x10 (max_x = 9, max_y = 9)" do
+      expect(rover.config.grid_limits).to eq [9, 9]
     end
 
     it "receives an input command" do

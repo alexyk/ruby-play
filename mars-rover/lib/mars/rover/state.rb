@@ -10,7 +10,7 @@ module Mars
         def initialize(direction="N", position_x=0, position_y=0)
           @position = Mars::Rover::Models::Position.new(position_x, position_y)
           @direction = Mars::Rover::Models::Direction.new(direction)
-          @grid_limits = Mars::Rover::Models::GridLimits.new(10,10)
+          @grid_limits = [9,9]
           @obstacles = []
         end
       end

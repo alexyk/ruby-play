@@ -161,13 +161,4 @@ RSpec.describe Mars::Rover::Models do
       expect(dir.to_s).to eq "E"
     end
   end
-
-  context "GridLimits" do
-    it "inits with size that translates to Position.new(x,y)" do
-      grid = Mars::Rover::Models::GridLimits.new(10,10)
-      expect(grid.instance_variable_get("@max_x")).to eq 9
-      expect(grid.instance_variable_get("@max_y")).to eq 9
-      expect(grid.to_s).to eq '(maxX=9, maxY=9)'
-    end
-  end
 end
