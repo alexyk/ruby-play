@@ -22,10 +22,10 @@ module Mars
             old_position = @config.position.clone
 
             if is_rotation
-              self._apply_rotation_behaviour(ch, direction)
+              apply_rotation_behavior(ch, direction)
             elsif ch == "M"
-              self._apply_wrapping_movement_behavior(old_position, position, direction, grid_limits, obstacles)
-              self._apply_obstacle_behavior(old_position, position, obstacles)              
+              _apply_wrapping_movement_behavior(old_position, position, direction, grid_limits)
+              _apply_obstacle_behavior(old_position, position, obstacles)              
               if ! @obstacle_result.nil?
                 break
               end
@@ -50,7 +50,7 @@ module Mars
           position
         end
 
-        def _apply_wrapping_movement_behavior(old_position, position, direction, grid_limits, obstacles)
+        def _apply_wrapping_movement_behavior(old_position, position, direction, grid_limits)
           case direction.to_s
             when "N"
               if position.y == grid_limits[1]
@@ -83,7 +83,7 @@ module Mars
           DEBUG && puts("    #{P_VER == 2 ? '-> [MOV]' : '[Move] '} #{old_position.to_s2} -> #{position.to_s2}")
         end
 
-        def _apply_rotation_behaviour(cmd, direction)
+        def apply_rotation_behavior(cmd, direction)
           DEBUG && old_dir = direction.clone
           direction.rotate(cmd)
           DEBUG && puts("    #{P_VER == 2 ? '*  [ROT]' : '[Rotate]'} #{cmd}: #{old_dir.to_s} -> #{direction.to_s}")
