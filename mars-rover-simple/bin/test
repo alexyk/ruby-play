@@ -10,7 +10,7 @@ while ((1)); do
   elif [ $#  -gt 0 ]; then
     rspec "$file_name"
   else
-    rake spec
+    bundle exec rake spec
   fi
 
   echo
