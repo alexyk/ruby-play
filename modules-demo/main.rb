@@ -19,13 +19,13 @@ mi1 = Object.instance_methods
 # module singlenton values
 require './module-singleton'
 c2 = Object.constants - c1
-m2 = Object.methods - m1
+m2 = ModuleSingleton.methods - m1
 mi2 = ModuleSingleton.instance_methods #mi1 - Object.instance_methods
 
 # module for include values
 require './module-for-include'
 c3 = Object.constants - c1 - c2
-m3 = Object.methods - m1 - m2
+m3 = ModuleInclude.methods - m1 - m2
 mi3 = ModuleInclude.instance_methods #mi2 - Object.instance_methods - m2
 
 print_module_details("DEFAULTS (Ruby Object)", mi1, m1, c1, true)
