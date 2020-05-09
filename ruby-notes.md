@@ -25,3 +25,34 @@
 ### Version Updrage
 * update all gems with `rvm gemset update`
 * **upgrade ruby version** with `rvm upgrade <old-version> <new-version>` for example `rvm upgrade 2.1.1 2.1.2`
+
+# Information
+
+## Random Projects and Repos
+https://github.com/madzhuga/rails_workflow_demo/  
+### Combined with React
+https://github.com/kelvinr/React-Todo
+### Workflows
+https://github.com/rails-engine/flow_core
+### Tools
+https://github.com/morshedalam/rename
+https://github.com/jcrisp/rails_refactor
+### Repos
+https://github.com/ruby
+https://github.com/rails
+#### Random
+https://github.com/jcrisp?tab=repositories
+
+## Reference
+
+### Ruby
+https://rubymonk.com
+
+### Rails
+https://guides.rubyonrails.org/getting_started.html
+
+### SASS/SCSS
+https://sass-lang.com/documentation/style-rules
+
+## Articles
+https://thoughtbot.com/blog/rails-patch-change-the-name-of-the-id-parameter-in
