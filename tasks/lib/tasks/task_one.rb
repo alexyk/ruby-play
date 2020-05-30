@@ -2,12 +2,13 @@ require "json"
 
 module Tasks
   PREFIX = "- "
+  PREFIX_1 = "> "
   INDENT = "  "
 
-  DEBUG = false
+  MODE = 'normal'  # compose, normal
 
   class Item
-    attr_reader :name, :id, :parent_id
+    attr_reader :name, :id, :parent_id, :items
     attr_accessor :parent_name
 
     def initialize(name, id, parent_id)
@@ -17,6 +18,20 @@ module Tasks
       @items = []
       @parent_name = nil
     end
+    
+    def print_self
+      case MODE
+        when 'compose'
+          printf("id:%3d, #{@name.ljust(15)} ", id)
+          print "-> #{@items.join(", ")}" if @items.count > 0 
+          puts
+          @items.each {|item| item.print_self}
+        else
+          puts
+          puts @name
+          print_items
+      end
+    end
 
     def add_item(item)
       item.parent_name = @name
@@ -25,11 +40,13 @@ module Tasks
 
     def print_items(level = 1, pre = PREFIX)
       if items_count > 0
+        level == 1 && pre = PREFIX_1
         @items.sort!.each do |item|
-          if DEBUG
-            puts "#{pre}#{item.name} < #{item.parent_name}"
-          else
-            puts "#{pre}#{item.name}"
+          case MODE
+            when 'compose'
+              puts "#{pre}#{item.name}(#{item.id})) < #{item.parent_name}(#{item.parent_id})"
+            else
+              puts "#{pre}#{item.name}"
           end
           pre = (level > 0 ? (INDENT*level) : '') + PREFIX
           item.print_items(level + 1, pre)
@@ -40,6 +57,11 @@ module Tasks
     def <=>(b)
       @name <=> b.name
     end
+
+    def to_s
+      @name
+    end
+    
 
     def items_count
       @items.count
@@ -59,8 +81,7 @@ module Tasks
 
     def print_all
       @top_items.sort!.each do |item|
-        puts item.name
-        item.print_items
+        item.print_self
       end
     end
 
