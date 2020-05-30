@@ -1,0 +1,32 @@
+#!/bin/bash
+
+set -e
+
+help_str="h -h ? /? help -help --help"
+sub_str=${help_str//$1//}
+is_help=0
+[ ${#sub_str} -ne ${#help_str} ] && is_help=1
+file="lib/tasks/task_$1.rb"
+
+if [ $# -ne 1 ] || ((is_help)) || [ ! -f "$file" ]; then
+  echo
+  echo "Usage: $0 <task_name>"
+  echo "Examples:"
+  echo "  $cmd one"
+  echo "  $cmd two"
+  echo "  $cmd three"
+  echo
+  exit 1
+fi
+
+while ((1)); do
+  ruby "$file"
+  echo "------- ENTER to rerun / Ctrl+C to stop ---------" 
+  read choice
+  case $choice in
+    'q' | 'quit' | 'x' | 'exit' | 'stop' )
+      break;
+      ;;
+  esac
+  clear;
+done
