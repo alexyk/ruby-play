@@ -23,7 +23,7 @@ module Tasks
       @items << item
     end
 
-    def print_items(level = 1, pre = PREFIX)
+    def print_items(level = 1, pre = PREFIX, &block)
       if items_count > 0
         @items.sort!.each do |item|
           if DEBUG
@@ -33,6 +33,7 @@ module Tasks
           end
           pre = (level > 0 ? (INDENT*level) : '') + PREFIX
           item.print_items(level + 1, pre)
+          yield if block_given?
         end
       end
     end
@@ -60,7 +61,7 @@ module Tasks
     def print_all
       @top_items.sort!.each do |item|
         puts item.name
-        item.print_items
+        item.print_items { puts }
       end
     end
 
