@@ -5,5 +5,10 @@ $LOAD_PATH.unshift File.dirname(__FILE__) + '/../lib'
 
 require "mars-rover-simple/main"
 
-puts "Command: #{ARGV[0]}"
-puts "Result: #{process_cmd(ARGV[0])}"
+if ARGV.count == 0
+  puts "One argument needed - the command to execute."
+  puts "Example: 'bin/start RMMLMLM'"
+else
+  puts "Command: #{ARGV[0]}"
+  puts "Result: #{process_cmd(ARGV[0])}"
+end

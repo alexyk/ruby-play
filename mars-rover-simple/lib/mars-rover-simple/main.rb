@@ -84,11 +84,11 @@ def apply_wrapping_movement_behavior(old_position)
       raise Error, "Invalid direction '#{direction}' when trying to change $position"
   end
 
-  DEBUG && puts("    #{P_VER == 2 ? '-> [MOV]' : '[Move] '} #{old_position.to_s2} -> #{$position.to_s2}")
+  DEBUG && puts("    #{P_VER == 2 ? '-> [MOV]' : '[Move] '} #{old_position.to_s} -> #{$position.to_s}")
 end
 
 def rotate_direction(cmd)
-  DEBUG && old_dir = direction.clone
+  DEBUG && old_dir = DIRECTIONS[$direction_index]
   cmd.each_char { |rotation_type|
     case rotation_type
       when "L"
@@ -99,7 +99,7 @@ def rotate_direction(cmd)
         raise StandardError, "Rotation '#{rotation_type}' is not a valid value - should be 'R' or 'L'"
     end
   }
-  DEBUG && puts("    #{P_VER == 2 ? '*  [ROT]' : '[Rotate]'} #{cmd}: #{old_dir.to_s} -> #{direction.to_s}")
+  DEBUG && puts("    #{P_VER == 2 ? '*  [ROT]' : '[Rotate]'} #{cmd}: #{old_dir.to_s} -> #{$direction.to_s}")
 end
 
 def rotate_direction_180
