@@ -32,15 +32,13 @@ module Tasks
             puts "#{pre}#{item.name}"
           end
           pre = (level > 0 ? (INDENT*level) : '') + PREFIX
-          if item.items_count > 0
-            item.print_items(level + 1, pre)
-          end
+          item.print_items(level + 1, pre)
         end
       end
     end
 
     def <=>(b)
-      @name[0] <=> b.name[0]
+      @name <=> b.name
     end
 
     def items_count
@@ -61,7 +59,6 @@ module Tasks
 
     def print_all
       @top_items.sort!.each do |item|
-        # puts "id: #{item.id}, #{item.name} -> #{item.items_count}"
         puts item.name
         item.print_items
       end
